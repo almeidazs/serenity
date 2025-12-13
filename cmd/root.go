@@ -7,3 +7,7 @@ var rootCmd = &cobra.Command{
 	Short: "A modern linter for Go, inspired by Biome",
 	Long:  "Fast, opinionated linter and formatter for Go with auto-fix capabilities",
 }
+
+func Exec() {
+	cobra.CheckErr(rootCmd.Execute())
+}
