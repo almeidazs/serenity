@@ -75,6 +75,3 @@ func (l *Linter) ProcessFile(filename string, doFormat, checkOnly bool) error {
 
 	return nil
 }
-
-func formatSource(src []byte) (formatted []byte, needsFormat bool, err error) {
-}
