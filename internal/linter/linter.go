@@ -7,16 +7,18 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/almeidazs/gowther/internal/rules"
 )
 
 type Linter struct {
 	Write  bool
 	Unsafe bool
 	Fset   *token.FileSet
-	Config *Config
+	Config *rules.Config
 }
 
-func New(write, unsafe bool, config *Config) *Linter {
+func New(write, unsafe bool, config *rules.Config) *Linter {
 	return &Linter{
 		Write:  write,
 		Unsafe: unsafe,
@@ -63,8 +65,7 @@ func (l *Linter) ProcessFile(filename string) error {
 		return err
 	}
 
-	file, err := parser.ParseFile(l.Fset, filename, src, parser.ParseComments)
-	if err != nil {
+	if _, err = parser.ParseFile(l.Fset, filename, src, parser.ParseComments); err != nil {
 		return fmt.Errorf("parse error in %s: %v", filename, err)
 	}
 
