@@ -4,27 +4,22 @@ import (
 	"fmt"
 	"go/parser"
 	"go/token"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/almeidazs/gowther/internal"
 )
 
 type Linter struct {
-	Write      bool
-	Unsafe     bool
-	fset       *token.FileSet
-	fixes      []internal.Fix
-	violations []internal.Violation
+	Write  bool
+	Unsafe bool
+	Fset   *token.FileSet
 }
 
 func New(write, unsafe bool) *Linter {
 	return &Linter{
 		Write:  write,
 		Unsafe: unsafe,
-		fset:   token.NewFileSet(),
+		Fset:   token.NewFileSet(),
 	}
 }
 
@@ -61,12 +56,12 @@ func (l *Linter) ProcessPath(path string, doFormat, checkOnly bool) error {
 }
 
 func (l *Linter) ProcessFile(filename string, doFormat, checkOnly bool) error {
-	src, err := ioutil.ReadFile(filename)
+	src, err := os.ReadFile(filename)
 	if err != nil {
 		return err
 	}
 
-	file, err := parser.ParseFile(l.fset, filename, src, parser.ParseComments)
+	file, err := parser.ParseFile(l.Fset, filename, src, parser.ParseComments)
 	if err != nil {
 		return fmt.Errorf("parse error in %s: %v", filename, err)
 	}

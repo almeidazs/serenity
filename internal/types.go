@@ -1,14 +1,17 @@
-package internal
+package types
 
-type Fix struct {
-	File    string
-	Content []byte
+type Config struct {
+	Schema        string     `json:"$schema"`
+	Naming        *RuleGroup `json:"naming"`
+	Complexity    *RuleGroup `json:"complexity"`
+	BestPractices *RuleGroup `json:"bestPractices"`
+	ErrorHandling *RuleGroup `json:"errorHandling"`
+	Imports       *RuleGroup `json:"imports"`
+	Exclude       []string   `json:"exclude"`
 }
 
-type Violation struct {
-	File    string
-	Line    int
-	Column  int
-	Message string
-	Level   string // "error", "warning", "unsafe"
+type RuleGroup struct {
+	Enabled bool           `json:"enabled"`
+	Rules   map[string]any `json:"rules"`
 }
+
