@@ -3,13 +3,13 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/almeidazs/gowther/internal/config"
+	"github.com/almeidazs/serenity/internal/config"
 	"github.com/spf13/cobra"
 )
 
 var initCmd = &cobra.Command{
 	Use:   "init",
-	Short: "Initializes gowther, creating a gowther.json configuration file.",
+	Short: "Initializes serenity, creating a serenity.json configuration file.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return runInit()
 	},
@@ -31,11 +31,11 @@ func runInit() error {
 	}
 
 	if exists {
-		fmt.Println("Config file gowther.json already exists.")
+		fmt.Println("Config file serenity.json already exists.")
 		return nil
 	}
 
-	fmt.Println("Creating default gowther.json config file...")
+	fmt.Println("Creating default serenity.json config file...")
 	cfg := config.GenDefaultConfig()
 
 	if err := config.CreateConfigFile(cfg, path); err != nil {

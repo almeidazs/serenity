@@ -1,6 +1,6 @@
 package config
 
-import "github.com/almeidazs/gowther/internal/rules"
+import "github.com/almeidazs/serenity/internal/rules"
 
 func GenDefaultConfig() *rules.Config {
 	config := rules.Config{

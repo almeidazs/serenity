@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/almeidazs/gowther/internal/rules"
+	"github.com/almeidazs/serenity/internal/rules"
 )
 
 type Linter struct {

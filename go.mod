@@ -1,4 +1,4 @@
-module github.com/almeidazs/gowther
+module github.com/almeidazs/serenity
 
 go 1.25.5
 

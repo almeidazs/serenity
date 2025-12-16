@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/almeidazs/gowther/internal/rules"
+	"github.com/almeidazs/serenity/internal/rules"
 )
 
 func GetConfigFilePath() (path string, err error) {
@@ -15,7 +15,7 @@ func GetConfigFilePath() (path string, err error) {
 		return "", fmt.Errorf("error to get user working directory: %w", err)
 	}
 
-	return filepath.Join(path, "gowther.json"), nil
+	return filepath.Join(path, "serenity.json"), nil
 }
 
 func CreateConfigFile(cfg *rules.Config, path string) error {
@@ -29,9 +29,9 @@ func CreateConfigFile(cfg *rules.Config, path string) error {
 		return fmt.Errorf("error marshalling JSON: %v", err)
 	}
 
-	err = os.WriteFile("gowther.json", jsonData, 0o644)
+	err = os.WriteFile("serenity.json", jsonData, 0o644)
 	if err != nil {
-		return fmt.Errorf("error writing gowther.json: %v", err)
+		return fmt.Errorf("error writing serenity.json: %v", err)
 	}
 
 	return nil
