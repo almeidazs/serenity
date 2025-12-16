@@ -37,14 +37,13 @@ func (l *Linter) ProcessPath(path string) ([]rules.Issue, error) {
 
 	var issues []rules.Issue
 	if info.IsDir() {
-		err := filepath.Walk(path, func(p string, info os.FileInfo, err error) error {
+		err = filepath.Walk(path, func(p string, info os.FileInfo, err error) error {
 			if err != nil {
 				return fmt.Errorf("error to read %v: %w", p, err)
 			}
 
 			if info.IsDir() {
-				name := info.Name()
-				if name == "vendor" || name == ".git" {
+				if info.Name() == "vendor" || info.Name() == ".git" {
 					return filepath.SkipDir
 				}
 
@@ -56,6 +55,8 @@ func (l *Linter) ProcessPath(path string) ([]rules.Issue, error) {
 				if err != nil {
 					return err
 				}
+
+				return nil
 			}
 
 			return nil
@@ -63,8 +64,17 @@ func (l *Linter) ProcessPath(path string) ([]rules.Issue, error) {
 		if err != nil {
 			return nil, err
 		}
+
+		return issues, nil
 	}
 
+	issues, err = l.ProcessFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("corintia")
+	fmt.Println(issues)
 	return issues, nil
 }
 
