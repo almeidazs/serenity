@@ -15,7 +15,6 @@ func GetConfigFilePath() (string, error) {
 	}
 
 	wd, err := os.Getwd()
-
 	if err != nil {
 		return "", fmt.Errorf("cannot get working directory: %w", err)
 	}
@@ -24,8 +23,7 @@ func GetConfigFilePath() (string, error) {
 }
 
 func CreateConfigFile(config *rules.LinterOptions, path string) error {
-	data, err := json.Marshal(config)
-
+	data, err := json.MarshalIndent(config, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to marshal config: %w", err)
 	}
@@ -53,7 +51,6 @@ func CheckHasConfigFile(path string) (bool, error) {
 
 func ReadConfig(path string) (*rules.LinterOptions, error) {
 	data, err := os.ReadFile(path)
-
 	if err != nil {
 		return nil, err
 	}
